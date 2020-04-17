@@ -1,0 +1,18 @@
+#menu{
+    float: left;
+    background-color: #dddddd;
+    border: solid 1px;
+}
+canvas{
+    float: left;
+}
+
+.radioButton {
+    position: relative;
+    left: 650px;
+    top: 200px;
+}
+
+body {
+    float: left;
+}

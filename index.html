@@ -1,0 +1,50 @@
+﻿<html>
+<head>
+    <title>Графики 3D</title>
+    <meta charset="utf-8" />
+    <link href='css/style.css' rel='stylesheet' />
+    
+    <script src='js/graph3D/entities/Point.js'></script>
+    <script src='js/graph3D/entities/Edge.js'></script>
+    <script src='js/graph3D/entities/Polygon.js'></script>
+    <script src='js/graph3D/entities/Subject.js'></script>
+
+    <script src='js/graph3D/Surfaces/Surfaces.js'></script>
+    <script src='js/graph3D/Surfaces/cube.js'></script>
+    <script src='js/graph3D/Surfaces/bublik.js'></script>
+    <script src='js/graph3D/Surfaces/sphere.js'></script>
+    <script src='js/graph3D/Surfaces/ellipsoid.js'></script>
+    <script src='js/graph3D/Surfaces/paraboloid.js'></script>
+
+    <script src='js/graph3D/Math3D.js'></script>
+    <script src='js/graph3D/Graph3D.js'></script>
+    <script src='js/graph/Canvas.js'></script>
+    <script src='js/UI.js'></script>    
+    <script src='js/main.js'></script>
+</head>
+<body>
+    <div class="radioButton"> 
+        <br>
+        <p><strong>Точки:</strong>
+            <input type="radio" id="pointTrue" name ="point" value="Вкл" checked="true">
+            <label for="pointTrue">Вкл</label>
+            <input type="radio" id="pointFalse" name="point" value="Выкл"> 
+            <label for="pointFalse">Выкл</label>
+        </p>
+        <br>
+        <p><strong>Линии:</strong>
+            <input type="radio" id="lineTrue" name ="line" value="Вкл" checked="true">
+            <label for="lineTrue">Вкл</label>
+            <input type="radio" id="lineFalse" name="line" value="Выкл"> 
+            <label for="lineFalse">Выкл</label>
+        </p>
+        <br>
+        <p><strong>Полигоны:</strong>
+            <input type="radio" id="polygonTrue" name ="polygon" value="Вкл" checked="true">
+            <label for="polygonTrue">Вкл</label>
+            <input type="radio" id="polygonFalse" name="polygon" value="Выкл"> 
+            <label for="polygonFalse">Выкл</label>
+        </p>
+    </div>    
+</body>
+</html>
