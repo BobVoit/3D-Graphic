@@ -31,10 +31,12 @@ class Canvas {
         return this.canvas.height - (y - this.WINDOW.BOTTOM) / this.WINDOW.HEIGHT * this.canvas.height;
     }
     sx(x) {
-        return x * this.WINDOW.WIDTH / this.canvas.width + this.WINDOW.LEFT;
+        //return x * this.WINDOW.WIDTH / this.canvas.width + this.WINDOW.LEFT;
+        return x * this.WINDOW.WIDTH / this.canvas.width;
     }
     sy(y) {
-        return (this.canvas.height - y) * this.WINDOW.HEIGHT / this.canvas.height + this.WINDOW.BOTTOM;
+        //return (this.canvas.height - y) * this.WINDOW.HEIGHT / this.canvas.height + this.WINDOW.BOTTOM;
+        return  y * this.WINDOW.HEIGHT / this.canvas.height;
     }
 
     clear() {
@@ -64,9 +66,9 @@ class Canvas {
         this.context.fillText(text, this.xs(x), this.ys(y));
     }
 
-    polygon(points, color = "#008800BB") {
+    polygon(points, color = '#008800BB') {
         this.context.fillStyle = color;
-        this.context.fillStroke = color;
+        this.context.strokeStroke = color;
         this.context.beginPath();
         this.context.moveTo(this.xs(points[0].x), this.ys(points[0].y));
         for (let i = 1; i < points.length; i++) {

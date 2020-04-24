@@ -8,6 +8,7 @@
     <script src='js/graph3D/entities/Edge.js'></script>
     <script src='js/graph3D/entities/Polygon.js'></script>
     <script src='js/graph3D/entities/Subject.js'></script>
+    <script src='js/graph3D/entities/Light.js'></script>
 
     <script src='js/graph3D/Surfaces/Surfaces.js'></script>
     <script src='js/graph3D/Surfaces/cube.js'></script>
@@ -19,32 +20,31 @@
     <script src='js/graph3D/Math3D.js'></script>
     <script src='js/graph3D/Graph3D.js'></script>
     <script src='js/graph/Canvas.js'></script>
-    <script src='js/UI.js'></script>    
+    <script src='js/ui/UI.js'></script>    
     <script src='js/main.js'></script>
 </head>
 <body>
-    <div class="radioButton"> 
+    <div class="canvas">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="checkboxButton"> 
         <br>
-        <p><strong>Точки:</strong>
-            <input type="radio" id="pointTrue" name ="point" value="Вкл" checked="true">
-            <label for="pointTrue">Вкл</label>
-            <input type="radio" id="pointFalse" name="point" value="Выкл"> 
-            <label for="pointFalse">Выкл</label>
-        </p>
-        <br>
-        <p><strong>Линии:</strong>
-            <input type="radio" id="lineTrue" name ="line" value="Вкл" checked="true">
-            <label for="lineTrue">Вкл</label>
-            <input type="radio" id="lineFalse" name="line" value="Выкл"> 
-            <label for="lineFalse">Выкл</label>
-        </p>
-        <br>
-        <p><strong>Полигоны:</strong>
-            <input type="radio" id="polygonTrue" name ="polygon" value="Вкл" checked="true">
-            <label for="polygonTrue">Вкл</label>
-            <input type="radio" id="polygonFalse" name="polygon" value="Выкл"> 
-            <label for="polygonFalse">Выкл</label>
-        </p>
+
+        <label for="pointTrue">
+            <input type="checkbox" id="printPoints">
+            <strong>Точки</strong>
+        </label><br>
+
+        <label for="pointTrue">                
+            <input type="checkbox" id="printEdges">
+            <strong>Ребра</strong>
+        </label><br>
+
+        <label for="pointTrue">
+            <input type="checkbox" id="printPolygons" >
+            <strong>Полигоны</strong>            
+        </label><br>
+
     </div>    
 </body>
 </html>

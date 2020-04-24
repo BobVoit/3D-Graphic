@@ -34,18 +34,18 @@ class Graph3D {
 
     // повороты по осям
     rotateOx(alpha, point) {
-        return this.math.rotateOx(alpha / 10, point);
+        return this.math.rotateOx(alpha, point);
     }
 
     rotateOy(alpha, point) {
-        return this.math.rotateOy(alpha / 10, point);
+        return this.math.rotateOy(alpha, point);
     }
 
     rotateOz(alpha, point) {
-        return this.math.rotateOz(alpha / 10, point);
+        return this.math.rotateOz(alpha, point);
     }
 
-    calcDistance(subject, endPoint) {
+    calcDistance(subject, endPoint, name) {
         for (let i = 0; i < subject.polygons.length; i++) {
             const points = subject.polygons[i].points;
             let x = 0, y = 0, z = 0;
@@ -53,18 +53,20 @@ class Graph3D {
                 x += subject.points[points[j]].x;
                 y += subject.points[points[j]].y;
                 z += subject.points[points[j]].z;
-
-            }   
+            };   
             x = x / points.length;
             y = y / points.length;
             z = z / points.length;
-            const dist = Math.sqrt(
-                Math.pow(endPoint.x - x, 2) + 
-                Math.pow(endPoint.y - y, 2) +
-                Math.pow(endPoint.z - z, 2)
-            );
-
-            subject.polygons[i].distance = dist;    
+            subject.polygons[i][name] = 
+                Math.sqrt( (endPoint.x - x) * (endPoint.x - x) +
+                            (endPoint.y - y) * (endPoint.y - y) +
+                            (endPoint.z - z) * (endPoint.z - z));   
+    
         }
+    }
+
+    calcIllumination(distance, lumen) {
+        let illum = (distance) ? lumen / (distance * distance) : 1;
+        return (illum > 1) ? 1 : illum;
     }
 }

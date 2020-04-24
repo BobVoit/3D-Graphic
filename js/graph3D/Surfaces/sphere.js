@@ -27,9 +27,15 @@ Surfaces.prototype.sphere = (count = 10, R = 10) => {
 
     for (let i = 0; i < count - 1; i++) {
         for (let j = 0; j < points.length - count; j += count) {
-            polygons.push(new Polygon([i + j, i + j + 1, i + j + 1 + count, i + j + count], "#00ef00"))
+            polygons.push(new Polygon([i + j, i + j + 1, i + j + 1 + count, i + j + count], "#ff0000"))
         }        
     }
+
+    for (let i = 0; i < count - 1; i++) {
+        polygons.push(new Polygon([points.length - count + i, points.length - count + 1 + i, i + 1, i], "#ff0000"))
+    }
+
+
 
     return new Subject(points, edges, polygons);
 }
