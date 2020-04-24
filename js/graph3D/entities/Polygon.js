@@ -4,6 +4,7 @@ class Polygon{
         this.color = this.hexToRgb(color);
         this.distance = 0; // растояние до камеры
         this.lumen = 1; // освещенность полигона [0..1]
+        this.visible = true; 
     }
 
     hexToRgb(hex) {
@@ -14,7 +15,7 @@ class Polygon{
             b: parseInt(result[3], 16)
         } : { r: 0, g: 0, b: 0 };
     }
-
+    
     rgbToHex(r, g, b) {
         return "#" + ((r << 16) + (g << 8) + b).toString(16);
     }

@@ -27,17 +27,15 @@ window.onload = function () {
     const graph3D = new Graph3D({ WINDOW });
     const ui = new UI({canvas, callbacks: {move, printPoints, printEdges, printPolygons}});
 
-    const SCENE = [sur.sphere(16, 16)]; // сцена
+    const SCENE = [sur.sphere()]; // сцена
 
     const LIGHT = new Light(-20, 2, -20, 200); // источник света
-
-    console.log(LIGHT);
 
     let canRotate = false; 
     let canPrint = {
         points: false,
         edges: false,
-        polygons: false
+        polygons: true
     }
 
     // about callbacks
@@ -100,29 +98,29 @@ window.onload = function () {
     function printSubject(subject) {
         // print polygons
         if (canPrint.polygons) {
+            // Отсечь невидимые грани
+            graph3D.calcGorner(subject, WINDOW.CAMERA);
+
             // алгоритм художника
             graph3D.calcDistance(subject, WINDOW.CAMERA, 'distance');
             subject.polygons.sort((a, b) => b.distance - a.distance);
-            graph3D.calcDistance(subject, LIGHT, 'lumin');
+            graph3D.calcDistance(subject, LIGHT, 'lumen');
             // отрисовка полигонов
             for (let i = 0; i < subject.polygons.length; i++) {
-                const polygon = subject.polygons[i];
-                const point1 = {x: graph3D.xs(subject.points[polygon.points[0]]), y: graph3D.ys(subject.points[polygon.points[0]])};
-                const point2 = {x: graph3D.xs(subject.points[polygon.points[1]]), y: graph3D.ys(subject.points[polygon.points[1]])};
-                const point3 = {x: graph3D.xs(subject.points[polygon.points[2]]), y: graph3D.ys(subject.points[polygon.points[2]])};
-                const point4 = {x: graph3D.xs(subject.points[polygon.points[3]]), y: graph3D.ys(subject.points[polygon.points[3]])};
-                let {r, g, b} = polygon.color;
-                const lumen = graph3D.calcIllumination(polygon.lumen, LIGHT.lumen);
-                r = Math.round(r * lumen);
-                g = Math.round(g * lumen);
-                b = Math.round(b * lumen);
-
-                console.log(r, g, b);
-
-                canvas.polygon([point1, point2, point3, point4], polygon.rgbToHex(r, g, b));
-                break;
+                if (subject.polygons[i].visible) {
+                    const polygon = subject.polygons[i];
+                    const point1 = {x: graph3D.xs(subject.points[polygon.points[0]]), y: graph3D.ys(subject.points[polygon.points[0]])};
+                    const point2 = {x: graph3D.xs(subject.points[polygon.points[1]]), y: graph3D.ys(subject.points[polygon.points[1]])};
+                    const point3 = {x: graph3D.xs(subject.points[polygon.points[2]]), y: graph3D.ys(subject.points[polygon.points[2]])};
+                    const point4 = {x: graph3D.xs(subject.points[polygon.points[3]]), y: graph3D.ys(subject.points[polygon.points[3]])};
+                    let {r, g, b} = polygon.color;
+                    const lumen = graph3D.calcIllumination(polygon.lumen, LIGHT.lumen);
+                    r = Math.round(r * lumen);
+                    g = Math.round(g * lumen);
+                    b = Math.round(b * lumen);
+                    canvas.polygon([point1, point2, point3, point4], polygon.rgbToHex(r, g, b));
+                }
             }
-
         }
                    
         // print edges
