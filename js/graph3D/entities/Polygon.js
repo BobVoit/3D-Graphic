@@ -17,7 +17,8 @@ class Polygon{
     }
     
     rgbToHex(r, g, b) {
-        return "#" + ((r << 16) + (g << 8) + b).toString(16);
+
+        return `rgb(${r}, ${g}, ${b})`;
     }
 
 }

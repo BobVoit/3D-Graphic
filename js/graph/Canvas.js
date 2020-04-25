@@ -40,11 +40,11 @@ class Canvas {
     }
 
     clear() {
-        this.context.fillStyle = '#eeeeee';
+        this.context.fillStyle = '#666';
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    line(x1, y1, x2, y2, color = '#0f0', width = 4) {
+    line(x1, y1, x2, y2, color = '#0f0', width = 1) {
         this.context.beginPath();
         this.context.strokeStyle = color;
         this.context.lineWidth = width;
@@ -53,7 +53,7 @@ class Canvas {
         this.context.stroke();
     }
 
-    point(x, y, color = '#f00', size = 4) {
+    point(x, y, color = '#f00', size = 2) {
         this.context.beginPath();
         this.context.strokeStyle = color;
         this.context.arc(this.xs(x), this.ys(y), size, 0, this.PI2);
@@ -66,7 +66,7 @@ class Canvas {
         this.context.fillText(text, this.xs(x), this.ys(y));
     }
 
-    polygon(points, color = '#008800BB') {
+    polygon(points, color = '#ff0000') {
         this.context.fillStyle = color;
         this.context.strokeStroke = color;
         this.context.beginPath();
@@ -75,7 +75,7 @@ class Canvas {
             this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
         }
         this.context.closePath();
-        this.context.stroke();
+        //this.context.stroke();
         this.context.fill();
     }
 }

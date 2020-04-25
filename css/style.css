@@ -1,10 +1,19 @@
-#menu{
-    float: left;
+.checkboxButton{
+    position: relative;
+    float: right;
+    right: 550px;
+    bottom: 150px;
     background-color: #dddddd;
     border: solid 1px;
 }
-canvas{
-    float: left;
+
+body {
+    background-color: #aaaaaa;
 }
+canvas{
+    position: relative;
+    bottom: 150px;
+}
+
 
 
