@@ -1,4 +1,4 @@
-Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), color = '#ff0000') => {
+Surfaces.prototype.cone = (count = 20, a = 5, c = 5, point = new Point(0, 0, 0), color = '#ff0000') => {
     let points = [];
     let edges = [];
     let polygons = [];
@@ -7,9 +7,9 @@ Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), colo
     const delta = Math.PI  * 2 / count;
     for (let i = 0; i <= Math.PI; i += delta) {
         for (let j = 0; j < Math.PI * 2; j += delta) {
-            const x = point.x + R * Math.sin(i) * Math.cos(j);
-            const y = point.y + R * Math.sin(i) * Math.sin(j);
-            const z = point.z + R * Math.cos(i);
+            const x = a * i * Math.cos(j);
+            const y = a * i * Math.sin(j);
+            const z = c * i;
             points.push(new Point(x, y, z));
         }
     }  

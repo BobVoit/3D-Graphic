@@ -28,10 +28,12 @@ window.onload = function () {
     const ui = new UI({canvas, callbacks: {move, printPoints, printEdges, printPolygons}});
 
     // сцена 
-    const SCENE = [
+    const SCENE = [ sur.twoHyperbolid()
+        /*
         sur.sphera(20),
         sur.sphera(20, 3, new Point(-6, 1, -6), '#00ff00'),
         sur.sphera(20, 2, new Point(6, 0, -8), '#00ffff') 
+        */
     ]; 
 
     const LIGHT = new Light(-20, 2, -20, 220); // источник света

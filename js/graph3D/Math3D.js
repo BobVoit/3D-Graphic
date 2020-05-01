@@ -22,8 +22,11 @@ class Math3D {
 
     calcGorner(a, b) {
         return this.scalProd(a, b) / 
-            (Math.sqrt(this.scalProd(a, a)) + Math.sqrt(this.scalProd(b, b)));
+            (Math.sqrt(this.scalProd(a, a)) + (Math.sqrt(this.scalProd(b, b))));
     }
+
+
+        
 
     
     

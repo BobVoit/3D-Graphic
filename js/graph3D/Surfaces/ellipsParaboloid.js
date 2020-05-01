@@ -1,4 +1,4 @@
-Surfaces.prototype.paraboloid = (count = 10, p = 5, q = 5) => {
+Surfaces.prototype.ellipsParaboloid = (count = 10, p = 5, q = 5) => {
     const points = [];
     const edges = [];
     const polygons = [];
