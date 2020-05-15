@@ -30,6 +30,8 @@ window.onload = function () {
     const graph3D = new Graph3D({ WINDOW });
     const ui = new UI({canvas, callbacks: {move, printPoints, printEdges, printPolygons}});
     // сцена 
+
+
     const SCENE = [ //sur.twoHyperbolid()
         // Мики Маус
         // sur.sphera(20, 3, new Point(-6, 0, -6), "#00ffff"),
@@ -42,19 +44,20 @@ window.onload = function () {
         // Солнечная система
 
         sur.sphera(20, 10, new Point(0, 0, 0), "#ffff00", { rotateOz: new Point }), //солнце 0
-        sur.sphera(20, 3, new Point(20, 0, 0), "#f74b0e", { rotateOz: new Point(20, 0, 0),
-            rotateOz: new Point(0, 0, 0) }), // меркурий 1
-        sur.sphera(20, 4, new Point(-40, 0, 0), "#6a738b", { rotateOz: new Point}), // венера 2
+        sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
+            { rotateOz: new Point}), // меркурий 1
+        sur.sphera(20, 4, new Point(-23, Math.sqrt(1600 - 23 * 23), 0), "#6a738b",
+            { rotateOz: new Point}), // венера 2
         sur.sphera(20, 4.4, new Point(0, 60, 0), "#2e3dfe", { rotateOz: new Point}), // земля 3
-        sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", { rotateOz: new Point(0, 60, 0)
-            }), // луна 4
-        sur.sphera(20, 3.6, new Point(0, -80, 0), "#fa0100", { rotateOz: new Point}), // марс 5
-        sur.sphera(20, 8, new Point(0, -120, 0), "#fc5300", { rotateOz: new Point}), // юпитер 6
+        sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", 
+        { rotateOz: new Point}), // луна 4
+        sur.sphera(20, 3.6, new Point(-Math.sqrt(6400 - 32 * 32), -32, 0), "#fa0100", { rotateOz: new Point}), // марс 5
+        sur.sphera(20, 8, new Point(Math.sqrt(120 * 120 - 110 * 110), -110, 0), "#fc5300", { rotateOz: new Point}), // юпитер 6
         sur.sphera(20, 7, new Point(150, 0, 0), "#e4cf00", { rotateOz: new Point}), // сатурн 7 
         sur.bublik(20, 14, new Point(150, 0, 0), "#a48200", { rotateOz: new Point}), // кольцо сатурна 8
         sur.sphera(20, 5.5, new Point(0, 180, 0), "#86aeff", { rotateOz: new Point}), // уран 9
         sur.bublik(20, 12, new Point(0, 180, 0), "#86c5ff", { rotateOz: new Point}), // кольцо урана 10
-        sur.sphera(20, 5.3, new Point(-170, 0, 0), "#0263c5", { rotateOz: new Point}), // нептут 11
+        sur.sphera(20, 5.3, new Point(-Math.sqrt(200 * 200 - 70 * 70), 70, 0), "#0263c5", { rotateOz: new Point}), // нептут 11
         
     ]; 
 
