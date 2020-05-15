@@ -1,4 +1,4 @@
-Surfaces.prototype.cone = (count = 20, a = 5, c = 5, point = new Point(0, 0, 0), color = '#ff0000') => {
+Surfaces.prototype.cone = (count = 20, a = 5, c = 5, point = new Point(0, 0, 0), color = '#ff0000', animation) => {
     let points = [];
     let edges = [];
     let polygons = [];
@@ -37,5 +37,5 @@ Surfaces.prototype.cone = (count = 20, a = 5, c = 5, point = new Point(0, 0, 0),
         }
     }
 
-    return new Subject(points, edges, polygons);
+    return new Subject(points, edges, polygons, animation);
 }

@@ -1,4 +1,4 @@
-Surfaces.prototype.cube = (x = 0, y = 0, z = 0, size = 10) => {
+Surfaces.prototype.cube = (x = 0, y = 0, z = 0, size = 10, animation) => {
     return new Subject([
         new Point(x - size, y - size, z - size),
         new Point(x - size, y - size, z + size),
@@ -18,7 +18,7 @@ Surfaces.prototype.cube = (x = 0, y = 0, z = 0, size = 10) => {
         new Polygon([1, 2, 6, 5], '#0000ff'), 
         new Polygon([2, 3, 7, 6], '#f2f806'), 
         new Polygon([4, 5, 6, 7], '#d3b69f')
-    ]);
+    ], animation);
 }
 // #0198ff
 // '#00ff00'

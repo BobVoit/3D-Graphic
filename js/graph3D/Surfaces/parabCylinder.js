@@ -1,4 +1,4 @@
-Surfaces.prototype.parabCylinder = (count = 20, p = 10, point = new Point(0, 0, 0), color = '#ff0000') => {
+Surfaces.prototype.parabCylinder = (count = 20, p = 10, point = new Point(0, 0, 0), color = '#ff0000', animation) => {
     let points = [];
     let edges = [];
     let polygons = [];
@@ -47,5 +47,5 @@ Surfaces.prototype.parabCylinder = (count = 20, p = 10, point = new Point(0, 0, 
         }
     }
 
-    return new Subject(points, edges, polygons);
+    return new Subject(points, edges, polygons, animation);
 }

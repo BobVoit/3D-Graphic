@@ -32,6 +32,10 @@ class Graph3D {
         return this.math.move(0, delta, 0, point)
     }
 
+    move(x, y, z, point) {
+        return this.math.move(x, y, z, point)
+    }
+
     // повороты по осям
     rotateOx(alpha, point) {
         return this.math.rotateOx(alpha, point);

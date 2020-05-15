@@ -1,4 +1,5 @@
-Surfaces.prototype.twoHyperbolid = (count = 20, a = 5,  c = 5, point = new Point(0, 0, 0), color = '#00ff00') => {
+Surfaces.prototype.twoHyperbolid = (count = 20, a = 5,  c = 5, point = new Point(0, 0, 0),
+ color = '#00ff00', animation) => {
     let points = [];
     let edges = [];
     let polygons = [];
@@ -59,5 +60,5 @@ Surfaces.prototype.twoHyperbolid = (count = 20, a = 5,  c = 5, point = new Point
         }
     }
 
-    return new Subject(points, edges, polygons);
+    return new Subject(points, edges, polygons, animation);
 }

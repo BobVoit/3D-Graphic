@@ -1,4 +1,4 @@
-Surfaces.prototype.hyperbolicParaboloid = (count = 20) => {
+Surfaces.prototype.hyperbolicParaboloid = (count = 20, animation) => {
     const points = [];
     const edges = [];
     const polygons = [];
@@ -33,5 +33,5 @@ Surfaces.prototype.hyperbolicParaboloid = (count = 20) => {
     }
     
 
-    return new Subject(points, edges, polygons);
+    return new Subject(points, edges, polygons, animation);
 }

@@ -1,7 +1,12 @@
-Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), color = '#ff0000') => {
+Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), color = '#ff0000', animation) => {
     let points = [];
     let edges = [];
     let polygons = [];
+    let center = {
+        x: point.x,
+        y: point.y,
+        z: point.z
+    }
 
     // точки
     const delta = Math.PI  * 2 / count;
@@ -37,5 +42,7 @@ Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), colo
         }
     }
 
-    return new Subject(points, edges, polygons);
+    //points.push(center);
+
+    return new Subject(points, edges, polygons, animation);
 }

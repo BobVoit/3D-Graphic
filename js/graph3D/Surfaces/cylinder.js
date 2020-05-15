@@ -1,4 +1,4 @@
-Surfaces.prototype.cylinder = (count = 10, a = 5, point = new Point(0, 0, 0), color = "#ff0000") => {
+Surfaces.prototype.cylinder = (count = 10, a = 5, point = new Point(0, 0, 0), color = "#ff0000", animation) => {
     const points = [];
     const edges = [];
     const polygons = [];
@@ -65,5 +65,5 @@ Surfaces.prototype.cylinder = (count = 10, a = 5, point = new Point(0, 0, 0), co
     
     
 
-    return new Subject(points, edges, polygons);
+    return new Subject(points, edges, polygons, animation);
 }

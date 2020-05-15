@@ -1,4 +1,4 @@
-Surfaces.prototype.ellipsoid = (count = 20, a = 10, b = 10, c = 16) => {
+Surfaces.prototype.ellipsoid = (count = 20, a = 10, b = 10, c = 16, animation) => {
     const points = [];
     const edges = [];
     const polygons = [];
@@ -36,5 +36,5 @@ Surfaces.prototype.ellipsoid = (count = 20, a = 10, b = 10, c = 16) => {
         polygons.push(new Polygon([points.length - count + i, points.length - count + 1 + i, i + 1, i], "#15f995"))
     }
     
-    return new Subject(points, edges, polygons);
+    return new Subject(points, edges, polygons, animation);
 }
