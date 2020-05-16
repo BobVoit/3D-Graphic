@@ -42,7 +42,7 @@ Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), colo
         }
     }
 
-    //points.push(center);
+    points.push(center);
 
     return new Subject(points, edges, polygons, animation);
 }

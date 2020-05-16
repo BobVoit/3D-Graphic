@@ -1,4 +1,4 @@
-Surfaces.prototype.hyperbolicParaboloid = (count = 20, animation) => {
+Surfaces.prototype.hyperbolicParaboloid = (count = 20, animation, point = new Point(0, 0, 0)) => {
     const points = [];
     const edges = [];
     const polygons = [];
@@ -9,9 +9,9 @@ Surfaces.prototype.hyperbolicParaboloid = (count = 20, animation) => {
     // точки
     for (let i = 0; i < count; i++) {
         for (let j = 0; j < count; j++) {
-            const x = i * delta - size / 2;
-            const y = j * delta - size / 2;
-            const z = x * x / 2 - y * y / 2;
+            const x = point.x + i * delta - size / 2;
+            const y = point.y + j * delta - size / 2;
+            const z = point.z +  x * x / 2 - y * y / 2;
             points.push(new Point(x, y, z));            
         }
     }

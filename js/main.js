@@ -33,6 +33,9 @@ window.onload = function () {
 
 
     const SCENE = [ //sur.twoHyperbolid()
+        //sur.hyperbolicParaboloid()
+        //sur.cylinder()
+
         // Мики Маус
         // sur.sphera(20, 3, new Point(-6, 0, -6), "#00ffff"),
         // sur.sphera(20, 3, new Point(6, 0, -6), "#ff00ff" ),
@@ -50,7 +53,7 @@ window.onload = function () {
             { rotateOz: new Point}), // венера 2
         sur.sphera(20, 4.4, new Point(0, 60, 0), "#2e3dfe", { rotateOz: new Point}), // земля 3
         sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", 
-        { rotateOz: new Point}), // луна 4
+            { rotateOz: new Point()}), // луна 4
         sur.sphera(20, 3.6, new Point(-Math.sqrt(6400 - 32 * 32), -32, 0), "#fa0100", { rotateOz: new Point}), // марс 5
         sur.sphera(20, 8, new Point(Math.sqrt(120 * 120 - 110 * 110), -110, 0), "#fc5300", { rotateOz: new Point}), // юпитер 6
         sur.sphera(20, 7, new Point(150, 0, 0), "#e4cf00", { rotateOz: new Point}), // сатурн 7 
@@ -62,15 +65,15 @@ window.onload = function () {
     ]; 
 
     // const SCENE_2 = [
-    //     sur.sphera(
-    //         20,
-    //         1, 
-    //         new Point(24, 0, 0), 
-    //         "#ff0000", 
-    //         {  rotateOz: new Point(20, 0, 0)}),
+    //     sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", 
+    //     { rotateOz: new Point(
+    //             SCENE1[3].points[SCENE1[3].points.length - 1].x, 
+    //             SCENE1[3].points[SCENE1[3].points.length - 1].y, 
+    //             SCENE1[3].points[SCENE1[3].points.length - 1].z
+    //         )}), // луна 4
     // ];
 
-    // const SCENE = SCENE_1.concat(SCENE_2);
+    // const SCENE = SCENE1.concat(SCENE_2);
 
     const LIGHT = new Light(-20, 2, -20, 700); // источник света
 
@@ -84,11 +87,12 @@ window.onload = function () {
     // about callbacks
     function wheel(event) {
         const delta = (event.wheelDelta > 0) ? ZOOM_IN : ZOOM_OUT;
+        graph3D.zoomMatrix(delta);
         SCENE.forEach(subject => {
-            subject.points.forEach(point => graph3D.zoom(delta, point));
+            subject.points.forEach(point => graph3D.transform(point));
             if (subject.animation ) {
                 for (let key in subject.animation) {
-                    graph3D.zoom(delta, subject.animation[key]);
+                    graph3D.transform(subject.animation[key]);
                 }
                 
             }
@@ -111,11 +115,12 @@ window.onload = function () {
         if (canRotate) {
             if (event.movementX) {
                 const alpha = canvas.sx(event.movementX) / WINDOW.CENTER.z;
+                graph3D.rotateOyMatrix(alpha);
                 SCENE.forEach(subject => {
-                    subject.points.forEach(point => graph3D.rotateOy(alpha, point));
+                    subject.points.forEach(point => graph3D.transform(point));
                     if (subject.animation ) {
                         for (let key in subject.animation) {
-                            graph3D.rotateOy(alpha, subject.animation[key]);
+                            graph3D.transform(subject.animation[key]);
                         }
                         
                     }       
@@ -123,11 +128,12 @@ window.onload = function () {
             }    
             if (event.movementY) {
                 const alpha = canvas.sy(event.movementY) / WINDOW.CENTER.z;
+                graph3D.rotateOxMatrix(alpha);
                 SCENE.forEach(subject => {
-                    subject.points.forEach(point => graph3D.rotateOx(alpha, point));                      
+                    subject.points.forEach(point => graph3D.transform(point));                      
                     if (subject.animation) {
                         for (let key in subject.animation) {
-                            graph3D.rotateOx(alpha, subject.animation[key]);
+                            graph3D.transform(subject.animation[key]);
                         }                      
                     }
                 });
@@ -151,11 +157,13 @@ window.onload = function () {
     function move(direction) {
         if (direction == 'up' || direction == 'down') {
             const delta = (direction === 'up') ? 0.1 : -0.1;
-            SCENE.forEach(subject => subject.points.forEach(point => graph3D.moveOy(delta, point)));
+            graph3D.moveMatrix(0, delta, 0);
+            SCENE.forEach(subject => subject.points.forEach(point => graph3D.transform(point)));
         }
         if (direction == 'left' || direction == 'right') {
             const delta = (direction === 'right') ? 0.1 : -0.1;
-            SCENE.forEach(subject => subject.points.forEach(point => graph3D.moveOx(delta, point)));
+            graph3D.moveMatrix(delta, 0, 0);
+            SCENE.forEach(subject => subject.points.forEach(point => graph3D.transform(point)));
         }
     }
 
@@ -234,11 +242,11 @@ window.onload = function () {
     
     function render() {
         canvas.clear();
-        //SCENE[4] = animationMoon(SCENE[4], SCENE[3].points[SCENE[3].points.length - 1])
+        //SCENE[SCENE.length - 1] = animationMoon(SCENE[SCENE.length - 1], SCENE[3].points[SCENE[3].points.length - 1])
         printAllPolygons();
         SCENE.forEach(subject => printSubject(subject));
         canvas.text(-9, 9, "FPS: " + FPSout);  
-
+        canvas.render();
     }
 
     function animation() {
@@ -250,13 +258,10 @@ window.onload = function () {
                     const xn = WINDOW.CENTER.x - x;
                     const yn = WINDOW.CENTER.y - y;
                     const zn = WINDOW.CENTER.z - z;
-                    // переместить центр объекта в центр координат
-                    subject.points.forEach(point => graph3D.move(xn, yn, zn, point));
-                    // повращать объект
+
                     const alpha = Math.PI / 180;
-                    subject.points.forEach(point => graph3D[key](alpha, point));
-                    //переместить центр объекта после вращения обратно
-                    subject.points.forEach(point => graph3D.move(-xn, -yn, -zn, point));
+                    graph3D.animateMatrix(xn, yn, zn, key, alpha, -xn, -yn, -zn);
+                    subject.points.forEach(point => graph3D.transform(point));
                 }
             }            
         });

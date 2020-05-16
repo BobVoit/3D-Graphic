@@ -18,36 +18,39 @@ class Graph3D {
         return (point.y - y0) / (point.z - z0) * (zs - z0) + y0;
     }
 
-    // масштабирование точки
-    zoom(delta, point) { 
-        this.math.zoom(delta, point); 
+
+    zoomMatrix(delta) {
+        this.math.transformMatrix([this.math.zoomMatrix(delta)]);
     }
 
-    // перенос точки вдоль оси Ox
-    moveOx(delta, point) { 
-        return this.math.move(delta, 0, 0, point);
-    }
-    // перенос точки вдоль оси Oy
-    moveOy(delta, point) { 
-        return this.math.move(0, delta, 0, point)
+    moveMatrix(sx, sy, sz) {
+        this.math.transformMatrix([this.math.moveMatrix(sx, sy, sz)]);
     }
 
-    move(x, y, z, point) {
-        return this.math.move(x, y, z, point)
+    rotateOxMatrix(alpha) {
+        this.math.transformMatrix([this.math.rotateOxMatrix(alpha)]);
     }
 
-    // повороты по осям
-    rotateOx(alpha, point) {
-        return this.math.rotateOx(alpha, point);
+    rotateOyMatrix(alpha) {
+        this.math.transformMatrix([this.math.rotateOyMatrix(alpha)]);
     }
 
-    rotateOy(alpha, point) {
-        return this.math.rotateOy(alpha, point);
+    rotateOzMatrix(alpha) {
+        this.math.transformMatrix([this.math.rotateOzMatrix(alpha)]);
     }
 
-    rotateOz(alpha, point) {
-        return this.math.rotateOz(alpha, point);
+    animateMatrix(x1, y1, z1, key, alpha, x2, y2, z2) {
+        this.math.transformMatrix([
+            this.math.moveMatrix(x1, y1, z1),
+            this.math[`${key}Matrix`](alpha),
+            this.math.moveMatrix(x2, y2, z2)
+        ]);
     }
+
+    transform(point) {
+        this.math.transform(point);
+    }
+
 
     calcDistance(subject, endPoint, name) {
         for (let i = 0; i < subject.polygons.length; i++) {

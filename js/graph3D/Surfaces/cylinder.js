@@ -31,7 +31,7 @@ Surfaces.prototype.cylinder = (count = 10, a = 5, point = new Point(0, 0, 0), co
             edges.push(new Edge(i,i + points.length - count));  
         }
     }
-    console.log(points);
+    
     /*for (let i = 0; i < points.length; i += count) {
         for (let j = 0; j < count; j++) {
             if (j + 1 < count) {
