@@ -37,12 +37,16 @@ class Canvas {
     ys(y) {
         return this.canvas.height - (y - this.WINDOW.BOTTOM) / this.WINDOW.HEIGHT * this.canvas.height;
     }
+    xsPolygon(x) {
+        return x / this.WINDOW.WIDTH * this.canvas.width;
+    }
+    ysPolygon(y) {
+        return this.canvas.height - y / this.WINDOW.HEIGHT * this.canvas.height;
+    }
     sx(x) {
-        //return x * this.WINDOW.WIDTH / this.canvas.width + this.WINDOW.LEFT;
         return x * this.WINDOW.WIDTH / this.canvas.width;
     }
     sy(y) {
-        //return (this.canvas.height - y) * this.WINDOW.HEIGHT / this.canvas.height + this.WINDOW.BOTTOM;
         return  y * this.WINDOW.HEIGHT / this.canvas.height;
     }
 
@@ -75,14 +79,12 @@ class Canvas {
 
     polygon(points, color = '#ff0000') {
         this.contextV.fillStyle = color;
-        this.contextV.strokeStroke = color;
         this.contextV.beginPath();
-        this.contextV.moveTo(this.xs(points[0].x), this.ys(points[0].y));
+        this.contextV.moveTo(this.xsPolygon(points[0].x), this.ysPolygon(points[0].y));
         for (let i = 1; i < points.length; i++) {
-            this.contextV.lineTo(this.xs(points[i].x), this.ys(points[i].y));
+            this.contextV.lineTo(this.xsPolygon(points[i].x), this.ysPolygon(points[i].y));
         }
         this.contextV.closePath();
-        //this.context.stroke();
         this.contextV.fill();
     }
 

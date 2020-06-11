@@ -2,11 +2,7 @@ Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), colo
     let points = [];
     let edges = [];
     let polygons = [];
-    let center = {
-        x: point.x,
-        y: point.y,
-        z: point.z
-    }
+    let center = new Point(point.x, point.y, point.z);
 
     // точки
     const delta = Math.PI  * 2 / count;

@@ -7,6 +7,22 @@ class Math3D {
                         [0, 0, 1, 0],
                         [0, 0, 0, 1]]                    
         };
+
+        // уравнение плоскости в удобном виде
+        this.plane = {
+            // нормальный вектор
+            A: 0,
+            B: 0,
+            C: 0,
+            // точка плоскости смещения
+            x0: 0,
+            y0: 0,
+            z0: 0,
+            // точка камеры
+            xs0: 0,
+            ys0: 0,
+            zs0: 0,
+        };
     }
 
 
@@ -20,7 +36,7 @@ class Math3D {
     }
 
 
-    
+    // векторное произведение векоров
     vectorProd(a, b) {
         return {
             x: a.y * b.z - a.z * b.y,
@@ -36,8 +52,48 @@ class Math3D {
 
     // Вычислить угол между 2-мя векторами
     calcGorner(a, b) {
-        return this.scalProd(a, b) / 
-            (Math.sqrt(this.scalProd(a, a)) + (Math.sqrt(this.scalProd(b, b))));
+        return this.scalProd(a, b) / (Math.sqrt(this.scalProd(a, a)) * (Math.sqrt(this.scalProd(b, b))));
+    }
+
+    calcVectorModule(a) {
+        return Math.sqrt(Math.pow(a.x, 2) + Math.pow(a.y, 2) + Math.pow(a.z, 2));
+    }
+
+    // расчет уравнения плоскости и запись его в структуру
+    // point1 - camera
+    // point2 - center (экрана) 
+    calcPlaneEquation(point1, point2) {
+        const vector = this.calcVector(point1, point2);
+        // координаты плоскости
+        this.plane.A = vector.x;
+        this.plane.B = vector.y;
+        this.plane.C = vector.z;
+        this.plane.x0 = point2.x;
+        this.plane.y0 = point2.y;
+        this.plane.z0 = point2.z;
+        // дописать камеру
+        this.plane.xs0 = point1.x;
+        this.plane.ys0 = point1.y;
+        this.plane.zs0 = point1.z;
+    }
+
+    // получить проекцию точки на проскости экрана относительно камеры
+    getProection(point) {
+        const { A, B, C, x0, y0, z0, xs0, ys0, zs0 } = this.plane;
+        const m = point.x - xs0;
+        const n = point.y - ys0;
+        const p = point.z - zs0;
+        const t = (A*(x0 - xs0) + B*(y0 - ys0) + C*(z0 - zs0)) / (A*m + B*n + C*p);
+        const ps = {
+            x: x0 + m * t,
+            y: y0 + n * t,
+            z: z0 + p * t
+        }
+        return {
+            x: ps.x + A, //m*t 
+            y: ps.y + B, //n*t
+            z: ps.z + C  //p*t
+        }
     }
 
     // перемножение матрицы преобразования на точку
