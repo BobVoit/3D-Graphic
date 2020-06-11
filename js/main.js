@@ -22,6 +22,9 @@ window.onload = function () {
         CENTER: new Point(0, 0, -30), // центр окошка, через которое видим мир -30
         CAMERA: new Point(0, 0, -50) // точка, из которой смотрим на мир 
     };
+    // получаем 
+
+
     const ZOOM_OUT = 1.1;
     const ZOOM_IN = 0.9;
 
@@ -34,43 +37,24 @@ window.onload = function () {
         callbacks: { wheel, mousemove, mouseup, mousedown, mouseleave}}
         );
     const graph3D = new Graph3D({ WINDOW });
-    const ui = new UI({canvas, callbacks: {move, printPoints, printEdges, printPolygons}});
+    const ui = new UI({canvas, 
+        callbacks: {move, printPoints, printEdges, printPolygons,
+            printFigures
+        }});
     // сцена 
 
+     
+    const SCENE = []; 
 
-    const SCENE = [ //sur.twoHyperbolid()
-        //sur.hyperbolicParaboloid()
-       //sur.ellipscylinder()
-        //sur.parabCylinder()
-
-        // Мики Маус
-        // sur.sphera(20, 6, new Point(0, 0, 0), "#ffff00", { }),
-        // sur.sphera(20, 3, new Point(-6, 0, -6), "#00ffff", { }),
-        // sur.sphera(20, 3, new Point(6, 0, -6), "#ff00ff" ),
-        // sur.sphera(20, 1, new Point(3, -5.5, -2), "#ff0000"),
-        // sur.sphera(20, 1, new Point(-3, -5.5, -2), "#ff0000"),
-        // sur.sphera(20, 1, new Point(0, -6, 0), "#00ff00"),
-
-        // Солнечная система
-
-        sur.sphera(20, 10, new Point(0, 0, 0), "#ffff00", {}), //солнце 0
-        sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
-            { rotateOz: new Point}), // меркурий 1
-        // sur.sphera(20, 4, new Point(-23, Math.sqrt(1600 - 23 * 23), 0), "#6a738b",
-        //     { rotateOz: new Point}), // венера 2
-        // sur.sphera(20, 4.4, new Point(0, 60, 0), "#2e3dfe", { rotateOz: new Point}), // земля 3
-        // //sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", 
-        // //     { rotateOz: new Point()}), // луна 4
-        // sur.sphera(20, 3.6, new Point(-Math.sqrt(6400 - 32 * 32), -32, 0), "#fa0100", { rotateOz: new Point}), // марс 5
-        // sur.sphera(20, 8, new Point(Math.sqrt(120 * 120 - 110 * 110), -110, 0), "#fc5300", { rotateOz: new Point}), // юпитер 6
-        // sur.sphera(20, 7, new Point(150, 0, 0), "#e4cf00", { rotateOz: new Point}), // сатурн 7 
-        // sur.bublik(20, 14, new Point(150, 0, 0), "#a48200", { rotateOz: new Point}), // кольцо сатурна 8
-        // sur.sphera(20, 5.5, new Point(0, 180, 0), "#86aeff", { rotateOz: new Point}), // уран 9
-        // sur.bublik(20, 12, new Point(0, 180, 0), "#86c5ff", { rotateOz: new Point}), // кольцо урана 10
-        // sur.sphera(20, 5.3, new Point(-Math.sqrt(200 * 200 - 70 * 70), 70, 0), "#0263c5", { rotateOz: new Point}), // нептут 11
-        
-    ]; 
-
+    let draw = "cube";
+    switch(draw) {
+            case "cube":
+                SCENE.push(sur.cube());
+                break;
+             case "bublik":
+                SCENE.push(sur.bublik());
+                break;
+    }
 
     const LIGHT = new Light(10, 2, 100, 8000); // источник света
 
@@ -80,6 +64,7 @@ window.onload = function () {
         edges: false,
         polygons: true
     }
+
 
     // about callbacks
     function wheel(event) {
@@ -131,6 +116,85 @@ window.onload = function () {
         }
     };
 
+
+    // рисование фигур
+    function printFigures(value) {
+        while (SCENE.length !== 0) {
+            SCENE.pop();
+        }
+        switch(value) {
+            case "cube":
+                SCENE.push(sur.cube());
+                break;
+            case "bublik":
+                SCENE.push(sur.bublik());
+                break;
+            case "hyperCylinder":
+                SCENE.push(sur.hyperCylinder());
+                break;
+            case "parabCylinder":
+                SCENE.push(sur.parabCylinder());
+                break;    
+            case "ellipscylinder":
+                SCENE.push(sur.ellipscylinder());
+                break;
+            case "oneHyperbolid":
+                SCENE.push(sur.oneHyperbolid());
+                break;
+            case "twoHyperbolid":
+                SCENE.push(sur.twoHyperbolid());
+                break;
+            case "ellipsoid":
+                SCENE.push(sur.ellipsoid());
+                break;
+            case "cone":
+                SCENE.push(sur.cone());
+                break;
+            case "sphera":
+                SCENE.push(sur.sphera());
+                break;
+            case "ellipsParaboloid":
+                SCENE.push(sur.ellipsParaboloid());
+                break;
+            case "hyperbolicParaboloid":
+                SCENE.push(sur.hyperbolicParaboloid());
+                break;
+            case "sunSystem":
+                SCENE.push(sur.sphera(40, 10, new Point(0, 0, 0), "#ffff00", {}), //солнце 0
+                    sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
+                        { rotateOz: new Point}), // меркурий 1
+                    sur.sphera(20, 4, new Point(-23, Math.sqrt(1600 - 23 * 23), 0), "#6a738b",
+                        { rotateOz: new Point}), // венера 2
+                    sur.sphera(20, 4.4, new Point(0, 60, 0), "#2e3dfe", { rotateOz: new Point}), // земля 3
+                    //sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", 
+                    //    { rotateOz: new Point()}), // луна 4
+                    sur.sphera(20, 3.6, new Point(-Math.sqrt(6400 - 32 * 32), -32, 0), "#fa0100", { rotateOz: new Point}), // марс 5
+                    sur.sphera(20, 8, new Point(Math.sqrt(120 * 120 - 110 * 110), -110, 0), "#fc5300", { rotateOz: new Point}), // юпитер 6
+                    sur.sphera(20, 7, new Point(150, 0, 0), "#e4cf00", { rotateOz: new Point}), // сатурн 7 
+                    sur.bublik(20, 14, new Point(150, 0, 0), "#a48200", { rotateOz: new Point}), // кольцо сатурна 8
+                    sur.sphera(20, 5.5, new Point(0, 180, 0), "#86aeff", { rotateOz: new Point}), // уран 9
+                    sur.bublik(20, 12, new Point(0, 180, 0), "#86c5ff", { rotateOz: new Point}), // кольцо урана 10
+                    sur.sphera(20, 5.3, new Point(-Math.sqrt(200 * 200 - 70 * 70), 70, 0), "#0263c5", { rotateOz: new Point}), // нептут 11
+                );
+                break;
+            case "mouses":
+                SCENE.push(sur.sphera(20, 6, new Point(0, 0, 0), "#ffff00", { }),
+                    sur.sphera(20, 3, new Point(-6, -5, -6), "#00ffff",  { rotateOx: new Point}),
+                    sur.sphera(20, 3, new Point(6, 0, -6), "#ff00ff" ),
+                    sur.sphera(20, 1, new Point(3, -5.5, -2), "#ff0000"),
+                    sur.sphera(20, 1, new Point(-3, -5.5, -2), "#ff0000"),
+                    sur.sphera(20, 1, new Point(0, -6, 0), "#00ff00"),
+                );
+                break; 
+            case "twoSphere":
+                SCENE.push(sur.sphera(40, 10, new Point(0, 0, 0), "#ffff00", {}), 
+                    sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
+                        { rotateOz: new Point})
+                );     
+                break;                                                   
+        }
+    }
+
     function printPoints(value) {
         canPrint.points = value;
     };
@@ -168,8 +232,8 @@ window.onload = function () {
             SCENE.forEach(subject => {
                 // алгоритм художника
                 //graph3D.calcGorner(subject, WINDOW.CAMERA); // Отсечь невидимые грани
-                graph3D.calcCenters(subject); // найти центры всех полигонов
                 graph3D.calcDistance(subject, WINDOW.CAMERA, 'distance'); // записать дистанции
+                graph3D.calcCenters(subject); // найти центры всех полигонов
                 //subject.polygons.sort((a, b) => b.distance - a.distance);
                 graph3D.calcDistance(subject, LIGHT, 'lumen');
             });

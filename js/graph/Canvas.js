@@ -59,15 +59,15 @@ class Canvas {
         this.contextV.beginPath();
         this.contextV.strokeStyle = color;
         this.contextV.lineWidth = width;
-        this.contextV.moveTo(this.xs(x1), this.ys(y1));
-        this.contextV.lineTo(this.xs(x2), this.ys(y2));
+        this.contextV.moveTo(this.xsPolygon(x1), this.ysPolygon(y1));
+        this.contextV.lineTo(this.xsPolygon(x2), this.ysPolygon(y2));
         this.contextV.stroke();
     }
 
     point(x, y, color = '#f00', size = 2) {
         this.contextV.beginPath();
         this.contextV.strokeStyle = color;
-        this.contextV.arc(this.xs(x), this.ys(y), size, 0, this.PI2);
+        this.contextV.arc(this.xsPolygon(x), this.ysPolygon(y), size, 0, this.PI2);
         this.contextV.stroke();
     }
 

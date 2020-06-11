@@ -4,8 +4,9 @@ class UI {
         const printPoints = (callbacks.printPoints instanceof Function) ? callbacks.printPoints : function () {};
         const printEdges = (callbacks.printEdges instanceof Function) ? callbacks.printEdges : function () {};
         const printPolygons = (callbacks.printPolygons instanceof Function) ? callbacks.printPolygons : function () {};
+        const printFigures = (callbacks.printPolygons instanceof Function) ? callbacks.printFigures : function () {};
         document.addEventListener('keydown', event => this.keyDown(event));
-
+        // для полигонов, точуе и ребер
         document
             .getElementById('printPoints')
             .addEventListener('click', function() { printPoints(this.checked);});
@@ -15,6 +16,10 @@ class UI {
         document
             .getElementById('printPolygons')
             .addEventListener('click', function() { printPolygons(this.checked);});
+        // для выбора фигур для рисованияы  
+        document
+            .getElementById('figures')
+            .addEventListener('click', function() { printFigures(this.value);});
     }
 
     keyDown(event) {

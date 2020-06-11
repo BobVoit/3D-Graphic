@@ -1,4 +1,4 @@
-Surfaces.prototype.ellipsParaboloid = (count = 10, p = 5, q = 5, animation) => {
+Surfaces.prototype.ellipsParaboloid = (count = 10, p = 5, q = 5, color = "#aa6f87", animation) => {
     const points = [];
     const edges = [];
     const polygons = [];
@@ -33,12 +33,12 @@ Surfaces.prototype.ellipsParaboloid = (count = 10, p = 5, q = 5, animation) => {
     
     for (let i = 0; i < count - 1; i++) {
         for (let j = 0; j < points.length - count; j += count) {
-            polygons.push(new Polygon([i + j, i + j + 1, i + j + 1 + count, i + j + count], "#15f995"))
+            polygons.push(new Polygon([i + j, i + j + 1, i + j + 1 + count, i + j + count], color))
         }        
     }
     
     for (let i = 0; i < points.length - count; i += count) {
-        polygons.push(new Polygon([i, i + count - 1,  i + 2 * count - 1, count + i], "#15f995"));
+        polygons.push(new Polygon([i, i + count - 1,  i + 2 * count - 1, count + i], color));
         
     }
     

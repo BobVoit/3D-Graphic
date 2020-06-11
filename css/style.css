@@ -11,6 +11,25 @@
 body {
     background-color: #aaaaaa;
 }
+
+.figures{
+    border-radius: 0;
+    background: transparent;
+    background-color: #CCC;
+    height: 34px;
+    padding: 5px;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+    -webkit-appearance: none;
+    width: 268px;
+    border: 2px solid #CCC;
+    overflow: hidden; 
+    height: 34px;
+    width: 240px;
+}
+
+
 /*
 canvas{
     position: relative;

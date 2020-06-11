@@ -1,4 +1,4 @@
-Surfaces.prototype.bublik = (count = 10, R = 10, point = new Point(0, 0, 0), color = "#ff0000", animation) => {
+Surfaces.prototype.bublik = (count = 10, R = 10, point = new Point(0, 0, 0), color = "#82d22c", animation) => {
     const points = [];
     const edges = [];
     const polygons = [];

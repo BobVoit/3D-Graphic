@@ -1,40 +1,37 @@
-Surfaces.prototype.ellipsoid = (count = 20, a = 10, b = 10, c = 16, animation) => {
+Surfaces.prototype.ellipsoid = (count = 20, a = 5, b = 10, color = "#4890e1", animation) => {
     const points = [];
     const edges = [];
     const polygons = [];
+    const PI = Math.PI;
+    let delta = 2 * PI / count;
 
-    const da = 2 * Math.PI / count;
-    for (let alpha = 0; alpha < 2 * Math.PI; alpha += da) {
-        for (let beta = 0; beta < 2 * Math.PI; beta += da ) {
-            x = a * Math.cos(alpha) * Math.cos(beta);
-            y = b * Math.cos(alpha) * Math.sin(beta);
-            z = c * Math.sin(alpha); 
-            points.push(new Point(x, y, z));;
-        } 
-    }  
-    
+    // Расставить точки
+    for (let i = 0; i <= 2 * PI; i += delta) {
+        for (let j = 0; j < 2 * PI; j += delta) {
+            const x = Math.cos(i) * Math.cos(j) * a;
+            const y = Math.sin(j) * b;
+            const z = a * Math.sin(i) * Math.cos(j);
+            points.push(new Point(x, y, z));
+        }
+    }
+    //Провести рёбра и полигоны
     for (let i = 0; i < points.length; i++) {
-        if (points[i + count]) {
-            edges.push(new Edge(i, i + count));
+        if ((i + 1) < points.length && (i + 1) % count !== 0) {
+            edges.push(new Edge(i, i + 1))
+        }
+        if (i + count < points.length) {
+            edges.push(new Edge(i, i + count))
         }
     }
-
-    for (let i = 0; i < points.length; i += count) {
-        for (let j = 0; j < count - 1; j++) {
-            edges.push(new Edge(i + j, i + j + 1))
+       //Полигоны
+       for (let i = 0; i < points.length; i++) {
+        if ((i + 1 + count) < points.length && (i + 1) % count !== 0) {
+            polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color))
+        } else if ((i + count) < points.length && (i + 1) % count === 0) {
+            polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color))
         }
     }
-
-    
-    for (let i = 0; i < count - 1; i++) {
-        for (let j = 0; j < points.length - count; j += count) {
-            polygons.push(new Polygon([i + j, i + j + 1, i + j + 1 + count, i + j + count], "#15f995"))
-        }        
-    }
-
-    for (let i = 0; i < count - 1; i++) {
-        polygons.push(new Polygon([points.length - count + i, points.length - count + 1 + i, i + 1, i], "#15f995"))
-    }
+   
     
     return new Subject(points, edges, polygons, animation);
 }

@@ -1,5 +1,4 @@
-
-Surfaces.prototype.ellipscylinder = (count = 20, color = '#ff0000', a = 5, b = 5, h = 10) => {
+Surfaces.prototype.ellipscylinder = (count = 20, color = '#be3b8d', a = 5, b = 5, h = 10) => {
     let points = [];
     let edges = [];
     let polygons = [];
