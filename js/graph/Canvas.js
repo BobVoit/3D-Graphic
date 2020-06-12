@@ -50,8 +50,8 @@ class Canvas {
         return  y * this.WINDOW.HEIGHT / this.canvas.height;
     }
 
-    clear() {
-        this.contextV.fillStyle = '#9cb8af';
+    clear(color = '#9cb8af') {
+        this.contextV.fillStyle = color;
         this.contextV.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 

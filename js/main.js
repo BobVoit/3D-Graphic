@@ -37,24 +37,13 @@ window.onload = function () {
         callbacks: { wheel, mousemove, mouseup, mousedown, mouseleave}}
         );
     const graph3D = new Graph3D({ WINDOW });
-    const ui = new UI({canvas, 
-        callbacks: {move, printPoints, printEdges, printPolygons,
+    const ui = new UI({callbacks: {move, printPoints, printEdges, printPolygons,
             printFigures
         }});
+    
+
     // сцена 
-
-     
     const SCENE = []; 
-
-    let draw = "cube";
-    switch(draw) {
-            case "cube":
-                SCENE.push(sur.cube());
-                break;
-             case "bublik":
-                SCENE.push(sur.bublik());
-                break;
-    }
 
     const LIGHT = new Light(10, 2, 100, 8000); // источник света
 
@@ -64,7 +53,6 @@ window.onload = function () {
         edges: false,
         polygons: true
     }
-
 
     // about callbacks
     function wheel(event) {
@@ -116,7 +104,6 @@ window.onload = function () {
         }
     };
 
-
     // рисование фигур
     function printFigures(value) {
         while (SCENE.length !== 0) {
@@ -160,7 +147,7 @@ window.onload = function () {
                 SCENE.push(sur.hyperbolicParaboloid());
                 break;
             case "sunSystem":
-                SCENE.push(sur.sphera(40, 10, new Point(0, 0, 0), "#ffff00", {}), //солнце 0
+                SCENE.push(sur.sphera(20, 10, new Point(0, 0, 0), "#ffff00", {}), //солнце 0
                     sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
                         { rotateOz: new Point}), // меркурий 1
                     sur.sphera(20, 4, new Point(-23, Math.sqrt(1600 - 23 * 23), 0), "#6a738b",
@@ -191,10 +178,12 @@ window.onload = function () {
                     sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
                         { rotateOz: new Point})
                 );     
-                break;                                                   
+                break; 
+            default: break;                                                      
         }
     }
 
+    // получение информации, о рисование фигур
     function printPoints(value) {
         canPrint.points = value;
     };
@@ -289,6 +278,7 @@ window.onload = function () {
             }
         }   
     }
+
 
     function render() {
         canvas.clear();
