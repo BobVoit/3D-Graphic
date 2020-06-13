@@ -31,11 +31,10 @@ Surfaces.prototype.mixColorSphere = (count = 40, R = 6, point = new Point(0, 0, 
 
     // полигоны
     for (let i = 0; i < points.length; i++) {
-        let r = Number(Math.floor(Math.random() * (256))).toString(16);
-        let g = Number(Math.floor(Math.random() * (256))).toString(16);
-        let b = Number(Math.floor(Math.random() * (256))).toString(16);
+        let r = Number(Math.floor(Math.random() * (255))).toString(16);
+        let g = Number(Math.floor(Math.random() * (255))).toString(16);
+        let b = Number(Math.floor(Math.random() * (255))).toString(16);
         let color = '#' + r + g + b;
-        console.log(color);
         if (i + 1 + count < points.length && (i + 1) % count !== 0) {
             polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
         } else if ((i + count) < points.length && (i + 1) % count === 0) {
