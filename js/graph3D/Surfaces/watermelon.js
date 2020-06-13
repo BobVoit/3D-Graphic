@@ -1,4 +1,5 @@
-Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), color = '#69b879', animation) => {
+Surfaces.prototype.watermelon = (count = 40, R = 6, point = new Point(0, 0, 0), 
+    color1 = '#017a03', color2 = '#011603', animation) => {
     let points = [];
     let edges = [];
     let polygons = [];
@@ -31,11 +32,19 @@ Surfaces.prototype.sphera = (count = 20, R = 6, point = new Point(0, 0, 0), colo
 
     // полигоны
     for (let i = 0; i < points.length; i++) {
-        if (i + 1 + count < points.length && (i + 1) % count !== 0) {
-            polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
-        } else if ((i + count) < points.length && (i + 1) % count === 0) {
-            polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color))
-        }
+        if ((i + 1) % 2 === 0) {
+            if (i + 1 + count < points.length && (i + 1) % count !== 0) {
+                polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color2));
+            } else if ((i + count) < points.length && (i + 1) % count === 0) {
+                polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color2))
+            }
+        } else {
+            if (i + 1 + count < points.length && (i + 1) % count !== 0) {
+                polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color1));
+            } else if ((i + count) < points.length && (i + 1) % count === 0) {
+                polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color1))
+            }
+        }    
     }
 
     points.push(center);

@@ -101,7 +101,7 @@ class Graph3D {
         }
         return {
             isShadow: false,
-            dark: 0.5
+            dark: 2
         };
     }
 

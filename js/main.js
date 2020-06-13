@@ -20,34 +20,34 @@ window.onload = function () {
         P2: new Point(-10, -10, -30), // левый нижний угол
         P3: new Point( 10, -10, -30), // правый нижний угол
         CENTER: new Point(0, 0, -30), // центр окошка, через которое видим мир -30
-        CAMERA: new Point(0, 0, -50) // точка, из которой смотрим на мир 
+        CAMERA: new Point(0, 0, -50) // точка, из которой смотрим на мир
     };
-    // получаем 
+    // получаем
 
 
     const ZOOM_OUT = 1.1;
     const ZOOM_IN = 0.9;
 
     const sur = new Surfaces;
-    const canvas = new Canvas({ 
+    const canvas = new Canvas({
         id: 'canvas',
-        width: 600, 
-        height: 600, 
-        WINDOW, 
+        width: 600,
+        height: 600,
+        WINDOW,
         callbacks: { wheel, mousemove, mouseup, mousedown, mouseleave}}
         );
     const graph3D = new Graph3D({ WINDOW });
     const ui = new UI({callbacks: {move, printPoints, printEdges, printPolygons,
             printFigures
         }});
-    
 
-    // сцена 
-    const SCENE = []; 
+
+    // сцена
+    const SCENE = [];
 
     const LIGHT = new Light(10, 2, 100, 8000); // источник света
 
-    let canRotate = false; 
+    let canRotate = false;
     let canPrint = {
         points: false,
         edges: false,
@@ -121,7 +121,7 @@ window.onload = function () {
                 break;
             case "parabCylinder":
                 SCENE.push(sur.parabCylinder());
-                break;    
+                break;
             case "ellipscylinder":
                 SCENE.push(sur.ellipscylinder());
                 break;
@@ -148,16 +148,16 @@ window.onload = function () {
                 break;
             case "sunSystem":
                 SCENE.push(sur.sphera(20, 10, new Point(0, 0, 0), "#ffff00", {}), //солнце 0
-                    sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
+                    sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e",
                         { rotateOz: new Point}), // меркурий 1
                     sur.sphera(20, 4, new Point(-23, Math.sqrt(1600 - 23 * 23), 0), "#6a738b",
                         { rotateOz: new Point}), // венера 2
                     sur.sphera(20, 4.4, new Point(0, 60, 0), "#2e3dfe", { rotateOz: new Point}), // земля 3
-                    //sur.sphera(20, 1, new Point(0, 53, 0), "#537d79", 
+                    //sur.sphera(20, 1, new Point(0, 53, 0), "#537d79",
                     //    { rotateOz: new Point()}), // луна 4
                     sur.sphera(20, 3.6, new Point(-Math.sqrt(6400 - 32 * 32), -32, 0), "#fa0100", { rotateOz: new Point}), // марс 5
                     sur.sphera(20, 8, new Point(Math.sqrt(120 * 120 - 110 * 110), -110, 0), "#fc5300", { rotateOz: new Point}), // юпитер 6
-                    sur.sphera(20, 7, new Point(150, 0, 0), "#e4cf00", { rotateOz: new Point}), // сатурн 7 
+                    sur.sphera(20, 7, new Point(150, 0, 0), "#e4cf00", { rotateOz: new Point}), // сатурн 7
                     sur.bublik(20, 14, new Point(150, 0, 0), "#a48200", { rotateOz: new Point}), // кольцо сатурна 8
                     sur.sphera(20, 5.5, new Point(0, 180, 0), "#86aeff", { rotateOz: new Point}), // уран 9
                     sur.bublik(20, 12, new Point(0, 180, 0), "#86c5ff", { rotateOz: new Point}), // кольцо урана 10
@@ -172,14 +172,20 @@ window.onload = function () {
                     sur.sphera(20, 1, new Point(-3, -5.5, -2), "#ff0000"),
                     sur.sphera(20, 1, new Point(0, -6, 0), "#00ff00"),
                 );
-                break; 
+                break;
             case "twoSphere":
-                SCENE.push(sur.sphera(40, 10, new Point(0, 0, 0), "#ffff00", {}), 
-                    sur.sphera(20, 3, new Point(10, Math.sqrt(400 - 100), 0), "#f74b0e", 
+                SCENE.push(sur.sphera(30, 10, new Point(0, 0, 0), "#ffff00", {}),
+                    sur.sphera(20, 3, new Point(13, 0, 10), "#f74b0e",
                         { rotateOz: new Point})
-                );     
-                break; 
-            default: break;                                                      
+                );
+                break;
+            case "watermelon":
+                SCENE.push(sur.watermelon());
+                break;   
+            case "mixColorSphere":
+                SCENE.push(sur.mixColorSphere());
+                break;      
+            default: break;
         }
     }
 
@@ -203,7 +209,7 @@ window.onload = function () {
             case 'down': graph3D.rotateOyMatrix(-Math.PI / 180); break;
             case 'left': graph3D.rotateOxMatrix(Math.PI / 180); break;
             case 'right': graph3D.rotateOxMatrix(-Math.PI / 180); break;
-        } 
+        }
         graph3D.transform(WINDOW.CAMERA);
         graph3D.transform(WINDOW.CENTER);
         graph3D.transform(WINDOW.P1);
@@ -257,7 +263,7 @@ window.onload = function () {
         }
     }
 
-  
+
 
     function printSubject(subject) {
         // нарисовать рёбра
@@ -276,7 +282,7 @@ window.onload = function () {
                 const points = graph3D.getProection(subject.points[i]);
                 canvas.point(points.x, points.y);
             }
-        }   
+        }
     }
 
 
@@ -284,7 +290,7 @@ window.onload = function () {
         canvas.clear();
         printAllPolygons();
         SCENE.forEach(subject => printSubject(subject));
-        canvas.text(-9, 9, "FPS: " + FPSout);  
+        canvas.text(-9, 9, "FPS: " + FPSout);
         canvas.render();
     }
 
@@ -292,7 +298,7 @@ window.onload = function () {
         // Закрутим фигуру!!!
         SCENE.forEach(subject => {
             if (subject.animation) {
-                for (let key in subject.animation) {                  
+                for (let key in subject.animation) {
                     const { x, y, z } = subject.animation[key];
                     const xn = 0 - x;
                     const yn = 0 - y;
@@ -301,7 +307,7 @@ window.onload = function () {
                     graph3D.animateMatrix(xn, yn, zn, key, alpha, -xn, -yn, -zn);
                     subject.points.forEach(point => graph3D.transform(point));
                 }
-            }            
+            }
         });
     }
 
@@ -323,9 +329,9 @@ window.onload = function () {
             FPS = 0;
 
         }
-        graph3D.calcPlaneEquation(); // получить и записать плоскость экрана    
-        graph3D.calcWindowVectors(); // вычислить вектора экрана    
+        graph3D.calcPlaneEquation(); // получить и записать плоскость экрана
+        graph3D.calcWindowVectors(); // вычислить вектора экрана
         render(); // рисуем сцену
         requestAnimFrame(animloop);
     })();
-}; 
+};
