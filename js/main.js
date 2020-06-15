@@ -45,7 +45,7 @@ window.onload = function () {
     // сцена
     const SCENE = [];
 
-    const LIGHT = new Light(10, 2, 100, 8000); // источник света
+    const LIGHT = new Light(-100, 2, -10, 5000); // источник света
 
     let canRotate = false;
     let canPrint = {
@@ -175,7 +175,7 @@ window.onload = function () {
                 break;
             case "twoSphere":
                 SCENE.push(sur.sphera(30, 10, new Point(0, 0, 0), "#ffff00", {}),
-                    sur.sphera(20, 3, new Point(13, 0, 10), "#f74b0e",
+                    sur.sphera(20, 3, new Point(0, 13, 10), "#f74b0e",
                         { rotateOz: new Point})
                 );
                 break;
@@ -184,7 +184,10 @@ window.onload = function () {
                 break;   
             case "mixColorSphere":
                 SCENE.push(sur.mixColorSphere());
-                break;      
+                break;  
+            case "ball":
+                SCENE.push(sur.ball());  
+                break;     
             default: break;
         }
     }
