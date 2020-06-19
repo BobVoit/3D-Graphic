@@ -83,7 +83,7 @@ window.onload = function () {
     function mousemove(event) {
         if (canRotate) {
             if (event.movementX) {// крутить вокруг OY
-                const alpha =  canvas.sx(event.movementX) / 10;
+                const alpha =  event.movementX / 300;
                 graph3D.rotateOxMatrix(alpha);
                 graph3D.transform(WINDOW.CAMERA);
                 graph3D.transform(WINDOW.CENTER);
@@ -93,7 +93,7 @@ window.onload = function () {
 
             }
             if (event.movementY) {// крутить вокруг OX
-                const alpha = canvas.sy(event.movementY) / 10;
+                const alpha = event.movementY / 300;
                 graph3D.rotateOyMatrix(alpha);
                 graph3D.transform(WINDOW.CAMERA);
                 graph3D.transform(WINDOW.CENTER);
@@ -187,7 +187,20 @@ window.onload = function () {
                 break;  
             case "ball":
                 SCENE.push(sur.ball());  
-                break;     
+                break; 
+            case "time":
+                SCENE.push(sur.time());
+                break;      
+            case "ChessSphere":
+                SCENE.push(sur.chesssphere());
+                break; 
+            case "offset":
+                SCENE.push(
+                    sur.ellipsoid(20, 4, 10, "#f2e1ac"),
+                    sur.sphera(20, 4, new Point(6, 8, 0), "#f2e1ac"),
+                    sur.sphera(20, 4, new Point(-6, 8, 0), "#f2e1ac"),
+                );
+                break;               
             default: break;
         }
     }
